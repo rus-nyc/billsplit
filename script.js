@@ -1,34 +1,37 @@
-/*
-  This is your site JavaScript code - you can add interactivity!
-*/
+const button = document.querySelector("#btn");
+button.addEventListener("click", calculateAmount);
 
-// Print a message in the browser's dev tools console each time the page loads
-// Use your menus or right-click / control-click and choose "Inspect" > "Console"
-console.log("Hello 🌎");
+const buttonTip = document.querySelector("#addTip");
+buttonTip.addEventListener("click", showTip);
 
-/* 
-Make the "Click me!" button move when the visitor clicks it:
-- First add the button to the page by following the steps in the TODO 🚧
-*/
-const btn = document.querySelector("button"); // Get the button from the page
-if (btn) { // Detect clicks on the button
-  btn.onclick = function () {
-    // The 'dipped' class in style.css changes the appearance on click
-    btn.classList.toggle("dipped");
-  };
+function showTip(e) {
+  e.preventDefault();
+  tip.style.display = "block";
 }
 
+function calculateAmount(e) {
+  e.preventDefault();
+  const tip = document.querySelector("#tip").value;
+  const bill = document.querySelector("#bill").value;
+  const people = document.querySelector("#people").value;
 
-// ----- GLITCH STARTER PROJECT HELPER CODE -----
+  if (bill === "" || people === "" people < 1) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Please enter your information!",
+    });
+  }
 
-// Open file when the link in the preview is clicked
-let goto = (file, line) => {
-  window.parent.postMessage(
-    { type: "glitch/go-to-line", payload: { filePath: file, line: line } }, "*"
-  );
-};
-// Get the file opening button from its class name
-const filer = document.querySelectorAll(".fileopener");
-filer.forEach((f) => {
-  f.onclick = () => { goto(f.dataset.file, f.dataset.line); };
-});
+  let amountPerPerson = bill / people;
+  let tipPerPerson = (bill * tip) / people;
+  let totalSum = amountPerPerson + tipPerPerson;
+
+  amountPerPerson = amountPerPerson.toFixed(2);
+  tipPerPerson = tipPerPerson.toFixed(2);
+  totalSum = totalSum.toFixed(2);
+
+  document.querySelector("#dividedBill").textContent = amountPerPerson;
+  document.querySelector("#dividedTip").textContent = tipPerPerson;
+  document.querySelector("#billAndTip").textContent = totalSum;
+}
