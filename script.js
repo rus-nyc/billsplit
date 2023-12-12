@@ -15,7 +15,7 @@ function calculateAmount(e) {
   const bill = document.querySelector("#bill").value;
   const people = document.querySelector("#people").value;
 
-  if (bill === "" || people === "" people < 1) {
+  if (bill === "" || people === ""|| people < 1) {
     Swal.fire({
       icon: "error",
       title: "Oops...",
